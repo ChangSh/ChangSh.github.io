@@ -84,7 +84,7 @@ tags:
 1. 访问资源出现403 forbidden，查看日志出现错误：
     > 403 forbidden (13: Permission denied)  Nginx 403 forbidden forbidden 403 Permission denied
     
-原因是目录权限不够，解决办法： 修改web目录的读写权限，或者是把nginx的启动用户改成目录的所属用户，重启Nginx即可解决。
+    原因是目录权限不够，解决办法： 修改web目录的读写权限，或者是把nginx的启动用户改成目录的所属用户，重启Nginx即可解决。
 
     **chmod -R 777 /data**
     
@@ -119,6 +119,12 @@ location ^~ /t/ {
 1. 使用alias时，目录名后面一定要加"/"。
 2. alias在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用。
 3. alias只能位于location块中。（root可以不放在location中）
+
+
+
+
+
+
 
 
 
