@@ -4,7 +4,6 @@ title: Nginx安装部署及映射本地资源目录
 date: 2018-08-06 20:15:48
 tags:
 ---
-
 ### Linux 部署nginx
 
 ***环境： 百度云实例  CentOS / 7.5 x86_64 (64bit)***
@@ -41,7 +40,7 @@ tags:
     make install
     ```
 * 安装好后的目录如下
- ![image](http://182.61.41.64/images/1.jpg)
+![image](http://182.61.41.64/images/1.jpg)
     * conf 目录下的 nginx.conf 是nginx的配置文件
     * sbin 目录下 执行 ./nginx 启动服务
 * **一些常用命令**
@@ -55,30 +54,31 @@ tags:
 ### Nginx 映射本地目录
 ***通过反向代理来做一个简易的图片服务器***
 
+
 * 大致步骤：
-    *  取消注释开启日志，便于出现问题排查
+
+1. 取消注释开启日志，便于出现问题排查
     ```
     error_log  logs/error.log;
     #error_log  logs/error.log  notice;
     #error_log  logs/error.log  info;
-
     ```
-    * 修改 nginx/conf/nginx.conf, 存放图片的目录被我放在了 /root/pics    
+2. 修改 nginx/conf/nginx.conf, 存放图片的目录被我放在了 /root/pics  
     ```
     server {
         listen       80;
         server_name  182.61.41.64;
-
+    
         #charset koi8-r;
-
+    
         #access_log  logs/host.access.log  main;
-
+    
         location ^~ /images/ {
             alias   /root/pics/;
             index   1.txt;
         }
-
     ```
+
 * 过程当中踩到的坑：
     * 访问资源出现403 forbidden，查看日志出现错误：
     
@@ -86,46 +86,47 @@ tags:
     
     原因是目录权限不够，解决办法： 修改web目录的读写权限，或者是把nginx的启动用户改成目录的所属用户，重启Nginx即可解决。
 
-    **chmod -R 777 /data** <br/>
+    **chmod -R 777 /data**
+    
     **chmod -R 777 /data/www/**
+    
+    * root与alias主要区别——在于nginx如何解释location后面的uri，这会使两者分别以不同的方式将请求映射到服务器文件上。
+    root的处理结果是：root路径＋location路径
+    alias的处理结果是：使用alias路径替换location路径
+    alias是一个目录别名的定义，root则是最上层目录的定义。
+    还有一个重要的区别是alias后面必须要用"/"结束，否则会找不到文件的，而root则可有可无。
+    
     * 关于nginx root路径的一些说明：
-        * nginx指定文件路径有两种方式root和alias，指令的使用方法和作用域：<br/>
-        [root] <br/>
-        语法：root path <br/>
-        默认值：root html <br/>
-        配置段：http、server、location、if
-        * [alias] <br/>
-        * 语法：alias path <br/>
-        * 配置段：location
-        
-        root与alias主要区别——在于nginx如何解释location后面的uri，这会使两者分别以不同的方式将请求映射到服务器文件上。
-        root的处理结果是：root路径＋location路径
-        alias的处理结果是：使用alias路径替换location路径
-        alias是一个目录别名的定义，root则是最上层目录的定义。
-        还有一个重要的区别是alias后面必须要用“/”结束，否则会找不到文件的，而root则可有可无。
+    
+        nginx指定文件路径有两种方式root和alias，指令的使用方法和作用域:         
+         
+          \ | root | alias
+            ---|---|---
+            语法 | root path | alias path
+            默认值 | root html | 
+            配置段 | http、server、location、if |  location
 
-    ```
-    //root实例：
-    location ^~ /t/ {
-         root /www/root/html/;
-    }
-    //如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/t/a.html的文件。
-    ```
+``` 
+//root实例：
+location ^~ /t/ {
+     root /www/root/html/;
+}
+//如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/t/a.html的文件。
+```
+```
+//alias实例：
+location ^~ /t/ {
+     alias /www/root/html/new_t/;
+}
+//如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/new_t/a.html的文件。注意这里是new_t，因为alias会把location后面配置的路径丢弃掉，把当前匹配到的目录指向到指定的目录。
+```
 
-    ```
-    //alias实例：
-    location ^~ /t/ {
-         alias /www/root/html/new_t/;
-    }
-    //如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/new_t/a.html的文件。注意这里是new_t，因为alias会把location后面配置的路径丢弃掉，把当前匹配到的目录指向到指定的目录。
-    ```
-
+    
     
 ##### 注意：
 1. 使用alias时，目录名后面一定要加"/"。
 2. alias在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用。
 3. alias只能位于location块中。（root可以不放在location中）
-
 
 
 
