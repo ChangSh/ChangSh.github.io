@@ -95,23 +95,20 @@ root的处理结果是：root路径＋location路径
 alias的处理结果是：使用alias路径替换location路径
 alias是一个目录别名的定义，root则是最上层目录的定义。
 还有一个重要的区别是alias后面必须要用"/"结束，否则会找不到文件的，而root则可有可无。
-    
-
-
-``` 
-//root实例：
-location ^~ /t/ {
-     root /www/root/html/;
-}
-//如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/t/a.html的文件。
-```
-```
-//alias实例：
-location ^~ /t/ {
-     alias /www/root/html/new_t/;
-}
-//如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/new_t/a.html的文件。注意这里是new_t，因为alias会把location后面配置的路径丢弃掉，把当前匹配到的目录指向到指定的目录。
-```
+    ``` 
+    //root实例：
+    location ^~ /t/ {
+         root /www/root/html/;
+    }
+    //如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/t/a.html的文件。
+    ```
+    ```
+    //alias实例：
+    location ^~ /t/ {
+         alias /www/root/html/new_t/;
+    }
+    //如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/new_t/a.html的文件。注意这里是new_t，因为alias会把location后面配置的路径丢弃掉，把当前匹配到的目录指向到指定的目录。
+    ```
 
     
     
@@ -119,12 +116,6 @@ location ^~ /t/ {
 1. 使用alias时，目录名后面一定要加"/"。
 2. alias在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用。
 3. alias只能位于location块中。（root可以不放在location中）
-
-
-
-
-
-
 
 
 
