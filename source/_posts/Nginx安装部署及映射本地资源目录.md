@@ -18,31 +18,32 @@ tags:
 2. zlib 是一个压缩和解压缩模块
 3.  SSL是Secure Socket Layer（安全套接层协议）的缩写，可以在Internet上提供秘密性传输
 * **下载nginx tar包**
-```
-// 创建一个文件夹
-cd /usr/local
-mkdir nginx
-cd nginx
-// 下载 tar包
-wget http://nginx.org/download/nginx-1.13.7.tar.gz
-tar -xvf nginx-1.13.7.tar.gz
-```
+    ```
+    // 创建一个文件夹
+    cd /usr/local
+    mkdir nginx
+    cd nginx
+    // 下载 tar包
+    wget http://nginx.org/download/nginx-1.13.7.tar.gz
+    tar -xvf nginx-1.13.7.tar.gz
+    ```
 * **安装nginx**
-```
-//进入nginx目录 
-cd /usr/local/nginx/nginx-1.13.7
-//使用默认配置
-./configure
-```
-```
-//make make install
-make
-make install
-```
+    ```
+    //进入nginx目录 
+    cd /usr/local/nginx/nginx-1.13.7
+    //使用默认配置
+    ./configure
+    ```
+    ```
+    //make make install
+    make
+    make install
+    ```
 * 安装好后的目录如下
 ![image](http://182.61.41.64/images/1.jpg)
 1. conf 目录下的 nginx.conf 是nginx的配置文件
 2. sbin 目录下 执行 ./nginx 启动服务
+
 * **一些常用命令**
 1. 测试配置文件 /ningx/sbin/nginx -t
 2. 启动命令 安装路径下的 /nginx/sbin/nginx
@@ -58,37 +59,36 @@ make install
 * 大致步骤：
 
 1. 取消注释开启日志，便于出现问题排查
-```
-error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
-```
+    ```
+    error_log  logs/error.log;
+    #error_log  logs/error.log  notice;
+    #error_log  logs/error.log  info;
+    ```
 2. 修改 nginx/conf/nginx.conf, 存放图片的目录被我放在了 /root/pics  
-```
-server {
-    listen       80;
-    server_name  182.61.41.64;
-
-    #charset koi8-r;
-
-    #access_log  logs/host.access.log  main;
-
-    location ^~ /images/ {
-        alias   /root/pics/;
-        index   1.txt;
-    }
-```
+    ```
+    server {
+        listen       80;
+        server_name  182.61.41.64;
+    
+        #charset koi8-r;
+    
+        #access_log  logs/host.access.log  main;
+    
+        location ^~ /images/ {
+            alias   /root/pics/;
+            index   1.txt;
+        }
+    ```
 
 * 过程当中踩到的坑：
 1. 访问资源出现403 forbidden，查看日志出现错误：
-    
-> 403 forbidden (13: Permission denied)  Nginx 403 forbidden forbidden 403 Permission denied
+    > 403 forbidden (13: Permission denied)  Nginx 403 forbidden forbidden 403 Permission denied
     
 原因是目录权限不够，解决办法： 修改web目录的读写权限，或者是把nginx的启动用户改成目录的所属用户，重启Nginx即可解决。
 
-**chmod -R 777 /data**
-
-**chmod -R 777 /data/www/**
+    **chmod -R 777 /data**
+    
+    **chmod -R 777 /data/www/**
 
 2. root与alias主要区别——在于nginx如何解释location后面的uri，这会使两者分别以不同的方式将请求映射到服务器文件上。
 root的处理结果是：root路径＋location路径
