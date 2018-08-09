@@ -20,15 +20,15 @@ java 通过后台设置cookie的方式：
 
 第一次请求
 
-![image](182.61.41.64/images/1533816120139.jpg)
+![image](http://182.61.41.64/images/1533816120139.jpg)
 
 第二次请求
 
-![image](182.61.41.64/images/1533816178635.jpg)
+![image](http://182.61.41.64/images/1533816178635.jpg)
 
 Stack Overflow 关于cookie的说法是
 
-![image](182.61.41.64/images/1533816282463.jpg)
+![image](http://182.61.41.64/images/1533816282463.jpg)
 
 
 
