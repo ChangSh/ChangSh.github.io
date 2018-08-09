@@ -229,6 +229,267 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/09/关于Cookie的一些说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChangSh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sandman">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/09/关于Cookie的一些说明/" itemprop="url">关于Cookie的一些说明</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-09T19:56:25+08:00">
+                2018-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="关于Cookie的一些说明"><a href="#关于Cookie的一些说明" class="headerlink" title="关于Cookie的一些说明"></a>关于Cookie的一些说明</h4><p>java 通过后台设置cookie的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&quot;Set-Cookie&quot;, &quot;uid=112; Path=/; HttpOnly&quot;);</span><br><span class="line"></span><br><span class="line">或者  </span><br><span class="line">Cookie cookie = new Cookie(&quot;123&quot;, &quot;123&quot;);</span><br><span class="line">response.addCookie(cookie);</span><br></pre></td></tr></table></figure>
+<p>两种方法都是降cookie的相关信息(key, value)放在response header中</p>
+<p>第一次请求</p>
+<p><img src="http://182.61.41.64/images/1533816120139.jpg" alt="image"></p>
+<p>第二次请求</p>
+<p><img src="http://182.61.41.64/images/1533816178635.jpg" alt="image"></p>
+<p>Stack Overflow 关于cookie的说法是</p>
+<p><img src="http://182.61.41.64/images/1533816282463.jpg" alt="image"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/09/域名解析过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChangSh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sandman">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/09/域名解析过程/" itemprop="url">域名解析过程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-09T15:49:58+08:00">
+                2018-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="域名解析过程"><a href="#域名解析过程" class="headerlink" title="域名解析过程"></a>域名解析过程</h3><p><strong><a href="http://www.baidu.com举例" target="_blank" rel="noopener">www.baidu.com举例</a></strong></p>
+<ol>
+<li>浏览器会会首先搜索<strong>浏览器自身的DNS缓存</strong>（缓存时间比较短，大概只有1分钟，并且只能容纳1000条缓存），看自身缓存中是否有<a href="http://www.baidu.com中对应的条目，并且没有过期，如果有且没有过期，则解析到此结束。" target="_blank" rel="noopener">www.baidu.com中对应的条目，并且没有过期，如果有且没有过期，则解析到此结束。</a></li>
+<li>如果浏览器自身的缓存里面没有找到对应的条目，那么浏览器会搜索<strong>操作系统本身的DNS缓存</strong>，如果找到且没有过期则停止搜索解析到此结束。</li>
+<li>如果再Windows系统的DNS缓存中没有找到，那么尝试<strong>读取hosts文件</strong>，文件位于（C:\Windows\System32\drivers\etc），看看这里有没有该域名对应的IP地址，如果有则解析成功。</li>
+<li><ul>
+<li>如果hosts文件中也没有找到对应的条目，浏览器就会发起一个<strong>DNS的系统调用</strong>，就会向本地配置的首选DNS服务器（一般是电信运营商提供的）发起域名解析请求（通常是UDP协议向DNS的53端口发起请求，这个请求是一个递归请求，也就是运营商的DNS服务器必须得提供给我们该域名的IP地址）</li>
+<li>运营商的DNS服务器首先会查找自身的缓存，找到对应条目，且没有过期，则解析成功。如果没有找到对应的条目，则由运营商的DNS代我们的浏览器发起迭代DNS解析请求</li>
+<li>它首先会找根域的DNS的IP地址（全球共有13台根服务器，运营商的DNS服务器会内置13台根域的DNS的IP地址），找到根域的DNS地址，就会向其发起请求（请问<a href="http://www.baidu.com这个域名的IP地址是多少啊？），根域发现这是一个顶级域com的一个域名，于是就告诉运营商的DNS我不知道这个域名的IP地址，但是我知道com域的IP地址，你找它去，于是运营商的DNS就得到了con域的IP地址，又向com域的IP地址发起请求（请问www.baidu.com这个域名的IP地址是多少？），com域这台服务器告诉运营商的DNS我不知道www.baidu.com这个域名的IP地址，但是我知道baidu.com这个域名的DNS地址，你去找它去" target="_blank" rel="noopener">www.baidu.com这个域名的IP地址是多少啊？），根域发现这是一个顶级域com的一个域名，于是就告诉运营商的DNS我不知道这个域名的IP地址，但是我知道com域的IP地址，你找它去，于是运营商的DNS就得到了con域的IP地址，又向com域的IP地址发起请求（请问www.baidu.com这个域名的IP地址是多少？），com域这台服务器告诉运营商的DNS我不知道www.baidu.com这个域名的IP地址，但是我知道baidu.com这个域名的DNS地址，你去找它去</a></li>
+<li>于是运营商DNS又向baidu.com这个域名的DNS地址（这个一般就是由域名注册商提供的，像万网，新网等）发起请求（请问<a href="http://www.baidu.com这个域名的IP地址是多少？），这个时候baidu.com域的DNS服务器一查，诶，果真在我这里，于是就把找到的结果发送给运营商的DNS服务器" target="_blank" rel="noopener">www.baidu.com这个域名的IP地址是多少？），这个时候baidu.com域的DNS服务器一查，诶，果真在我这里，于是就把找到的结果发送给运营商的DNS服务器</a></li>
+<li>这个时候运营商的DNS服务器就拿到了<a href="http://www.baidu.com这个域名对应的IP地址，并返回Windows系统内核，内核又把结果返回给浏览器，终于浏览器拿到了www.baidu.com的对应IP地址。---" target="_blank" rel="noopener">www.baidu.com这个域名对应的IP地址，并返回Windows系统内核，内核又把结果返回给浏览器，终于浏览器拿到了www.baidu.com的对应IP地址。---</a></li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/使用Hexo-Github-搭建博客并在多台电脑上提交和更新/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -463,57 +724,52 @@
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//make make install</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>安装好后的目录如下<br><img src="http://182.61.41.64/images/1.jpg" alt="image"></p>
-<ul>
+</li>
+</ul>
+<ol>
 <li>conf 目录下的 nginx.conf 是nginx的配置文件</li>
 <li>sbin 目录下 执行 ./nginx 启动服务</li>
+</ol>
+<ul>
+<li><strong>一些常用命令</strong></li>
 </ul>
-</li>
-<li><strong>一些常用命令</strong><ul>
+<ol>
 <li>测试配置文件 /ningx/sbin/nginx -t</li>
 <li>启动命令 安装路径下的 /nginx/sbin/nginx</li>
 <li>停止命令 安装路径下的 /nginx/sbin/nginx -s stop</li>
 <li>重启命令 安装路径下的 .nginx/sbin/nginx -s reload</li>
 <li>查看进程命令 ps -ef | grep nginx</li>
 <li>平滑重启 kill -HUP Nginx主进程号</li>
-</ul>
-</li>
-</ul>
+</ol>
 <h3 id="Nginx-映射本地目录"><a href="#Nginx-映射本地目录" class="headerlink" title="Nginx 映射本地目录"></a>Nginx 映射本地目录</h3><p><strong><em>通过反向代理来做一个简易的图片服务器</em></strong></p>
 <ul>
-<li><p>大致步骤：</p>
-<ul>
-<li><p>取消注释开启日志，便于出现问题排查</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">error_log  logs/error.log;</span><br><span class="line">#error_log  logs/error.log  notice;</span><br><span class="line">#error_log  logs/error.log  info;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改 nginx/conf/nginx.conf, 存放图片的目录被我放在了 /root/pics    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  182.61.41.64;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line"></span><br><span class="line">    #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">    location ^~ /images/ &#123;</span><br><span class="line">        alias   /root/pics/;</span><br><span class="line">        index   1.txt;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>大致步骤：</li>
 </ul>
+<ol>
+<li><p>取消注释开启日志，便于出现问题排查</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">error_log  logs/error.log;</span><br><span class="line">#error_log  logs/error.log  notice;</span><br><span class="line">#error_log  logs/error.log  info;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>过程当中踩到的坑：</p>
+<li><p>修改 nginx/conf/nginx.conf, 存放图片的目录被我放在了 /root/pics  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  182.61.41.64;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line"></span><br><span class="line">    #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">    location ^~ /images/ &#123;</span><br><span class="line">        alias   /root/pics/;</span><br><span class="line">        index   1.txt;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 <ul>
+<li>过程当中踩到的坑：</li>
+</ul>
+<ol>
 <li><p>访问资源出现403 forbidden，查看日志出现错误：</p>
 <blockquote>
 <p>403 forbidden (13: Permission denied)  Nginx 403 forbidden forbidden 403 Permission denied</p>
 </blockquote>
-<p>原因是目录权限不够，解决办法： 修改web目录的读写权限，或者是把nginx的启动用户改成目录的所属用户，重启Nginx即可解决。</p>
-<p><strong>chmod -R 777 /data</strong> <br><br><strong>chmod -R 777 /data/www/</strong></p>
+<p> 原因是目录权限不够，解决办法： 修改web目录的读写权限，或者是把nginx的启动用户改成目录的所属用户，重启Nginx即可解决。</p>
+<p> <strong>chmod -R 777 /data</strong></p>
+<p> <strong>chmod -R 777 /data/www/</strong></p>
 </li>
-<li><p>关于nginx root路径的一些说明：</p>
-<ul>
-<li>nginx指定文件路径有两种方式root和alias，指令的使用方法和作用域：<br><br>[root] <br><br>语法：root path <br><br>默认值：root html <br><br>配置段：http、server、location、if</li>
-<li>[alias] <br></li>
-<li>语法：alias path <br></li>
-<li><p>配置段：location</p>
-<p>root与alias主要区别——在于nginx如何解释location后面的uri，这会使两者分别以不同的方式将请求映射到服务器文件上。<br>root的处理结果是：root路径＋location路径<br>alias的处理结果是：使用alias路径替换location路径<br>alias是一个目录别名的定义，root则是最上层目录的定义。<br>还有一个重要的区别是alias后面必须要用“/”结束，否则会找不到文件的，而root则可有可无。</p>
+<li><p>root与alias主要区别——在于nginx如何解释location后面的uri，这会使两者分别以不同的方式将请求映射到服务器文件上。<br>root的处理结果是：root路径＋location路径<br>alias的处理结果是：使用alias路径替换location路径<br>alias是一个目录别名的定义，root则是最上层目录的定义。<br>还有一个重要的区别是alias后面必须要用”/“结束，否则会找不到文件的，而root则可有可无。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//root实例：</span><br><span class="line">location ^~ /t/ &#123;</span><br><span class="line">     root /www/root/html/;</span><br><span class="line">&#125;</span><br><span class="line">//如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/t/a.html的文件。</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//alias实例：</span><br><span class="line">location ^~ /t/ &#123;</span><br><span class="line">     alias /www/root/html/new_t/;</span><br><span class="line">&#125;</span><br><span class="line">//如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/new_t/a.html的文件。注意这里是new_t，因为alias会把location后面配置的路径丢弃掉，把当前匹配到的目录指向到指定的目录。</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//root实例：</span><br><span class="line">location ^~ /t/ &#123;</span><br><span class="line">     root /www/root/html/;</span><br><span class="line">&#125;</span><br><span class="line">//如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/t/a.html的文件。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//alias实例：</span><br><span class="line">location ^~ /t/ &#123;</span><br><span class="line">     alias /www/root/html/new_t/;</span><br><span class="line">&#125;</span><br><span class="line">//如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/new_t/a.html的文件。注意这里是new_t，因为alias会把location后面配置的路径丢弃掉，把当前匹配到的目录指向到指定的目录。</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
+</ol>
 <h5 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h5><ol>
 <li>使用alias时，目录名后面一定要加”/“。</li>
 <li>alias在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用。</li>
@@ -600,7 +856,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
