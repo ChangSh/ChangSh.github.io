@@ -40,7 +40,7 @@ tags:
     make install
     ```
 * 安装好后的目录如下
-![image](http://182.61.41.64/images/1.jpg)
+![image](http://182.61.41.64/images/1533625006688.jpg)
 1. conf 目录下的 nginx.conf 是nginx的配置文件
 2. sbin 目录下 执行 ./nginx 启动服务
 
