@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="maven 生命周期生命周期（lifecycle）由各个阶段组成，每个阶段由maven的插件plugin来执行完成。 我们如配置了maven-compiler-plugin这个插件，其它的插件没有配置，但最后项目构建成功，说明maven内置的各种插件，如果pom中没有配置就调用默认的内置插件，如果pom中配置了就调用配置的插件。 我们理解maven的构建过程或者有更多的人称是打包，就是由各种插件按">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发时候maven jar包依赖的一些注意事项">
+<meta property="og:url" content="http://yoursite.com/2018/08/19/开发时候maven-jar包依赖的一些注意事项/index.html">
+<meta property="og:site_name" content="Sandman">
+<meta property="og:description" content="maven 生命周期生命周期（lifecycle）由各个阶段组成，每个阶段由maven的插件plugin来执行完成。 我们如配置了maven-compiler-plugin这个插件，其它的插件没有配置，但最后项目构建成功，说明maven内置的各种插件，如果pom中没有配置就调用默认的内置插件，如果pom中配置了就调用配置的插件。 我们理解maven的构建过程或者有更多的人称是打包，就是由各种插件按">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://182.61.41.64/images/1534499441674.png">
+<meta property="og:updated_time" content="2018-08-19T14:33:21.648Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发时候maven jar包依赖的一些注意事项">
+<meta name="twitter:description" content="maven 生命周期生命周期（lifecycle）由各个阶段组成，每个阶段由maven的插件plugin来执行完成。 我们如配置了maven-compiler-plugin这个插件，其它的插件没有配置，但最后项目构建成功，说明maven内置的各种插件，如果pom中没有配置就调用默认的内置插件，如果pom中配置了就调用配置的插件。 我们理解maven的构建过程或者有更多的人称是打包，就是由各种插件按">
+<meta name="twitter:image" content="http://182.61.41.64/images/1534499441674.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/19/开发时候maven-jar包依赖的一些注意事项/"/>
+
+
+
+
+
+  <title>开发时候maven jar包依赖的一些注意事项 | Sandman</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sandman</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/19/开发时候maven-jar包依赖的一些注意事项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChangSh">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sandman">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">开发时候maven jar包依赖的一些注意事项</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-19T22:32:51+08:00">
+                2018-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="maven-生命周期"><a href="#maven-生命周期" class="headerlink" title="maven 生命周期"></a>maven 生命周期</h4><p>生命周期（lifecycle）由各个阶段组成，每个阶段由maven的插件plugin来执行完成。</p>
+<p>我们如配置了maven-compiler-plugin这个插件，其它的插件没有配置，但最后项目构建成功，说明maven内置的各种插件，如果pom中没有配置就调用默认的内置插件，如果pom中配置了就调用配置的插件。</p>
+<p>我们理解maven的构建过程或者有更多的人称是打包，就是由各种插件按照一定的顺序执行来完成项目的编译，单元测试、打包、布署的完成。各种插件的执行过程也就构成的maven的生命周期（lifecycle）。</p>
+<p>生命周期（lifecycle）各个阶段并不是独立的，可以单独执行如mvn clean，也可以一起执行如mvn clean install。而且有的mvn命令其是包括多个阶段的，如mvn compile其是包括了resources和compile两个阶段。
+　</p>
+<ul>
+<li>mvn clean package依次执行了clean、resources、compile、testResources、testCompile、test、jar(打包)等7个阶段。</li>
+<li>mvn clean install依次执行了clean、resources、compile、testResources、testCompile、test、jar(打包)、install等8个阶段。</li>
+<li>mvn clean deploy依次执行了clean、resources、compile、testResources、testCompile、test、jar(打包)、install、deploy等9个阶段。</li>
+</ul>
+<p>它们的主要区别如下，</p>
+<ul>
+<li>package命令完成了项目编译、单元测试、打包功能，但没有把打好的可执行jar包（war包或其它形式的包）布署到本地maven仓库和远程maven私服仓库</li>
+<li>install命令完成了项目编译、单元测试、打包功能，同时把打好的可执行jar包（war包或其它形式的包）布署到本地maven仓库，但没有布署到远程maven私服仓库</li>
+<li>deploy命令完成了项目编译、单元测试、打包功能，同时把打好的可执行jar包（war包或其它形式的包）布署到本地maven仓库和远程maven私服仓库　　</li>
+</ul>
+<h4 id="持续集成-时开发环境，测试环境，线上环境切换时的注意事项："><a href="#持续集成-时开发环境，测试环境，线上环境切换时的注意事项：" class="headerlink" title="持续集成 时开发环境，测试环境，线上环境切换时的注意事项："></a><strong>持续集成</strong> 时开发环境，测试环境，线上环境切换时的注意事项：</h4><ul>
+<li><p>利用profile来切换环境 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;activation&gt;</span><br><span class="line">     &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;</span><br><span class="line">&lt;/activation&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开发环境</p>
+<ol>
+<li>由于开发环境是直接从master上面拉的分支，因此pom的有关配置都是和master主干（线上环境）一致，尤其是版本号，如 1.9.26-RELEASE。</li>
+<li>admin项目依赖item项目，admin项目的pom文件中依赖item项目jar包的版本号和item项目本身pom文件中的版本号一致（都是1.9.26-RELEASE）。</li>
+<li>item项目开发完成后执行 mvn install 命令，admin项目的maven插件自动检测依赖的变化，reimport检测到maven 根据版本号打包，因此本地仓库中的1.9.26-RELEASE jar包文件更新。</li>
+<li>主干的profile的active状态是dev，只好可以在拉开发分之后对应开发配置。</li>
+</ol>
+</li>
+<li>测试环境<ol>
+<li>测试环境是独立的测试分支test，profiles的active为test。</li>
+<li>item项目所有的turbo接口都是1.2.5-SNAPSHOT，admin项目的测试环境中对item项目依赖的版本也是1.2.5-SNAPSHOT快照版本，这样，<strong>有一点需要注意的地方：</strong> 从自己的开发分支merge到test分支之前，如果不把自己分支的版本号改成1.2.5-SNAPSHOT，test分支的pom文件版本号会被自己分支的版本号（1.9.26-RELEASE）覆盖。</li>
+<li>为了避免出现因为忘记导致第二项版本被覆盖的情况，应该在拉完开发分支后直接修改版本号为1.2.5-SNAPSHOT。</li>
+</ol>
+</li>
+<li>线上环境<br>TODO</li>
+</ul>
+<p>测试环境的打包脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line"></span><br><span class="line">DIR=$( cd &quot;$( dirname &quot;$&#123;BASH_SOURCE[0]&#125;&quot; )&quot; &amp;&amp; pwd )</span><br><span class="line"></span><br><span class="line">cd $&#123;DIR&#125;</span><br><span class="line">mvn -e versions:set \</span><br><span class="line">    -DgroupId=cn.com.autohome.mall \</span><br><span class="line">    -DartifactId=mall-api-aggregator \</span><br><span class="line">    -DnewVersion=1.2.5-SNAPSHOT</span><br><span class="line">mvn -e clean compile deploy -P release-sign-artifacts -DskipTests</span><br></pre></td></tr></table></figure></p>
+<p>执行结果如下图：<br><img src="http://182.61.41.64/images/1534499441674.png" alt="images"></p>
+<p>脚本执行了 <strong>mvn -e clean compile deploy</strong> </p>
+<p>在持续集成服务器上使用怎样的 mvn 命令集成项目，下面是一些总结：</p>
+<ul>
+<li>不要忘了clean： clean能够保证上一次构建的输出不会影响到本次构建。</li>
+<li>使用deploy而不是install：构建的SNAPSHOT输出应当被自动部署到私有Maven仓库供他人使用。</li>
+<li>使用-U 参数： 该参数能强制让Maven检查所有SNAPSHOT依赖更新，确保集成基于最新的状态，如果没有该参数，Maven默认以天为单位检查更新，而持续集成的频率应该比这高很多。<br>使用-e参数：如果构建出现异常，该参数能让Maven打印完整的stack trace，以方便分析错误原因。<br>使用-Dmaven.repo.local参数：如果持续集成服务器有很多任务，每个任务都会使用本地仓库，下载依赖至本地仓库，为了避免这种多线程使用本地仓库可能会引起的冲突，可以使用-Dmaven.repo.local=/home/juven/ci/foo-repo/这样的参数为每个任务分配本地仓库。<br>使用-B参数：该参数表示让Maven使用批处理模式构建项目，能够避免一些需要人工参与交互而造成的挂起状态。</li>
+</ul>
+<p>综上，持续集成服务器上的集成命令应该为 mvn clean deploy -B -e -U -Dmaven.repo.local=xxx 。<br>测试打包直接用运行脚本<br>deploy.sh<br>默认测试快照版本就是 1.2.5-SNAPSHOT</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/15/IDEA-Web项目debug时引发的思考/" rel="next" title="IDEA Web项目debug时引发的思考">
+                <i class="fa fa-chevron-left"></i> IDEA Web项目debug时引发的思考
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ChangSh</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#maven-生命周期"><span class="nav-number">1.</span> <span class="nav-text">maven 生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#持续集成-时开发环境，测试环境，线上环境切换时的注意事项："><span class="nav-number">2.</span> <span class="nav-text">持续集成 时开发环境，测试环境，线上环境切换时的注意事项：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChangSh</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
